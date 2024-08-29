@@ -36,7 +36,8 @@ func main() {
 		defer os.RemoveAll(dir)
 
 		cmd.SysProcAttr = &syscall.SysProcAttr{
-			Chroot: dir,
+			Chroot:     dir,
+			Cloneflags: syscall.CLONE_NEWUTS | syscall.CLONE_NEWNS | syscall.CLONE_NEWPID,
 		}
 
 		err := cmd.Run()
